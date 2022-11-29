@@ -5,7 +5,7 @@ use super::models::{KeyPress, TextTyping};
 pub fn press_key(press: KeyPress) {
     let mut options = vec![];
 
-    if let Some(clear_modifiers) = press.clear_modifiers && clear_modifiers {
+    if let Some(true) = press.clear_modifiers {
         options.push(KeyboardOption::ClearModifiers);
     }
 
@@ -23,7 +23,7 @@ pub fn press_key(press: KeyPress) {
 pub fn type_text(typing: TextTyping) {
     let mut options = vec![];
 
-    if let Some(clear_modifiers) = typing.clear_modifiers && clear_modifiers {
+    if let Some(true) = typing.clear_modifiers {
         options.push(KeyboardOption::ClearModifiers);
     }
 

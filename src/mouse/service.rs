@@ -24,7 +24,7 @@ pub fn move_cursor(movement: CursorMove) {
     let dx = movement.dx.unwrap_or_default();
     let dy = movement.dy.unwrap_or_default();
 
-    if let Some(clear_modifiers) = movement.clear_modifiers && clear_modifiers {
+    if let Some(true) = movement.clear_modifiers {
         options.push(MouseMoveRelativeOption::ClearModifiers);
     }
 
