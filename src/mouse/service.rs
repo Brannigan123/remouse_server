@@ -32,54 +32,22 @@ pub fn move_cursor(movement: CursorMove) {
 }
 
 pub fn click(click: MouseAction) {
-    let mut options = vec![];
-
-    let button = match click.button {
-        0 => mouse::Button::Left,
-        1 => mouse::Button::Middle,
-        2 => mouse::Button::Right,
-        3 => mouse::Button::ScrollUp,
-        4 => mouse::Button::ScrollDown,
-        _ => mouse::Button::Left,
-    };
-
-    if let Some(delay) = click.delay {
-        options.push(ClickOption::Delay(delay));
-    }
-
-    if let Some(count) = click.count {
-        options.push(ClickOption::Repeat(count));
-    }
-
+    let (options, button) = extract_click_options(click);
     mouse::click(button, xdotool::OptionVec(options));
 }
 
 pub fn click_down(click: MouseAction) {
-    let mut options = vec![];
-
-    let button = match click.button {
-        0 => mouse::Button::Left,
-        1 => mouse::Button::Middle,
-        2 => mouse::Button::Right,
-        3 => mouse::Button::ScrollUp,
-        4 => mouse::Button::ScrollDown,
-        _ => mouse::Button::Left,
-    };
-
-    if let Some(delay) = click.delay {
-        options.push(ClickOption::Delay(delay));
-    }
-
-    if let Some(count) = click.count {
-        options.push(ClickOption::Repeat(count));
-    }
-
+    let (options, button) = extract_click_options(click);
     mouse::click_down(button, xdotool::OptionVec(options));
 }
 
 pub fn click_up(click: MouseAction) {
-    let mut options = vec![];
+    let (options, button) = extract_click_options(click);
+    mouse::click_up(button, xdotool::OptionVec(options));
+}
 
+fn extract_click_options(click: MouseAction) -> (Vec<ClickOption>, mouse::Button) {
+    let mut options = vec![];
     let button = match click.button {
         0 => mouse::Button::Left,
         1 => mouse::Button::Middle,
@@ -88,14 +56,11 @@ pub fn click_up(click: MouseAction) {
         4 => mouse::Button::ScrollDown,
         _ => mouse::Button::Left,
     };
-
     if let Some(delay) = click.delay {
         options.push(ClickOption::Delay(delay));
     }
-
     if let Some(count) = click.count {
         options.push(ClickOption::Repeat(count));
     }
-
-    mouse::click_up(button, xdotool::OptionVec(options));
+    (options, button)
 }
