@@ -49,6 +49,8 @@ async fn main() -> io::Result<()> {
                     .service(mouse::controller::get_cursor_position)
                     .service(mouse::controller::move_cursor)
                     .service(mouse::controller::click)
+                    .service(mouse::controller::click_down)
+                    .service(mouse::controller::click_up)
                     .service(keyboard::controller::press_key)
                     .service(keyboard::controller::type_text),
             )

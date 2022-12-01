@@ -29,3 +29,15 @@ pub async fn click(move_req: Json<MouseAction>) -> HttpResponse {
     super::service::click(move_req.into_inner());
     HttpResponse::Ok().into()
 }
+
+#[post("/cursor/click_down")]
+pub async fn click_down(move_req: Json<MouseAction>) -> HttpResponse {
+    super::service::click_down(move_req.into_inner());
+    HttpResponse::Ok().into()
+}
+
+#[post("/cursor/click_up")]
+pub async fn click_up(move_req: Json<MouseAction>) -> HttpResponse {
+    super::service::click_up(move_req.into_inner());
+    HttpResponse::Ok().into()
+}
