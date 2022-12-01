@@ -53,3 +53,49 @@ pub fn click(click: MouseAction) {
 
     mouse::click(button, xdotool::OptionVec(options));
 }
+
+pub fn click_down(click: MouseAction) {
+    let mut options = vec![];
+
+    let button = match click.button {
+        0 => mouse::Button::Left,
+        1 => mouse::Button::Middle,
+        2 => mouse::Button::Right,
+        3 => mouse::Button::ScrollUp,
+        4 => mouse::Button::ScrollDown,
+        _ => mouse::Button::Left,
+    };
+
+    if let Some(delay) = click.delay {
+        options.push(ClickOption::Delay(delay));
+    }
+
+    if let Some(count) = click.count {
+        options.push(ClickOption::Repeat(count));
+    }
+
+    mouse::click_down(button, xdotool::OptionVec(options));
+}
+
+pub fn click_up(click: MouseAction) {
+    let mut options = vec![];
+
+    let button = match click.button {
+        0 => mouse::Button::Left,
+        1 => mouse::Button::Middle,
+        2 => mouse::Button::Right,
+        3 => mouse::Button::ScrollUp,
+        4 => mouse::Button::ScrollDown,
+        _ => mouse::Button::Left,
+    };
+
+    if let Some(delay) = click.delay {
+        options.push(ClickOption::Delay(delay));
+    }
+
+    if let Some(count) = click.count {
+        options.push(ClickOption::Repeat(count));
+    }
+
+    mouse::click_up(button, xdotool::OptionVec(options));
+}
